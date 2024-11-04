@@ -3,26 +3,32 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
-class Teacher extends Authenticatable
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Teacher extends Model
 {
     use HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'subject',
-        'gender',
+        'user_id',
+        'employee_id',
+        'qualification',
+        'specialization',
         'phone',
         'address',
-        'photo'
+        'joining_date',
+        'salary'
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
+    protected $casts = [
+        'joining_date' => 'date',
+        'salary' => 'decimal:2'
     ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

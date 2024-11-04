@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('subject');
-            $table->string('gender');
-            $table->string('phone')->nullable();
-            $table->string('address')->nullable();
-            $table->string('photo')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('employee_id')->unique();
+            $table->string('qualification');
+            $table->string('subject_specialty');
+            $table->date('joining_date');
+            $table->string('phone');
+            $table->text('address');
+            $table->decimal('salary', 10, 2);
             $table->timestamps();
         });
     }
